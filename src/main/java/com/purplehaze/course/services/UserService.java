@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.purplehaze.course.entities.User;
 import com.purplehaze.course.repositories.UserRepository;
+import com.purplehaze.course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -21,7 +22,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional <User> obj = userRepository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public User Insert(User obj) {
